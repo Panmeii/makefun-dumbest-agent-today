@@ -40,6 +40,12 @@ function gateProblems(text: string): string[] {
   if (!text.endsWith('exist."')) {
     issues.push("punchline no longer closes the line");
   }
+  // The quoted announcement must open and close exactly once: an
+  // unbalanced quote would garble the agent's one moment of pride.
+  const quotes = text.split('"').length - 1;
+  if (quotes !== 2) {
+    issues.push(`expected one pair of quotes, found ${quotes} quote marks`);
+  }
   return issues;
 }
 
